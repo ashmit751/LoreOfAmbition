@@ -21,6 +21,11 @@ Conversation summary — moved here for reference
   3. Copy any files you want from the old workspace (`E:\n`) into this folder or start a new scaffold.
   4. Keep `CONVERSATION.md` in the repo root so context is preserved.
 
+- Current backend direction:
+  - Frontend lives in `Frontend/` as an Expo app.
+  - Backend lives in `Backend/` as a separate Express + Supabase server.
+  - Backend API routes are now meant to live in this folder, not inside the frontend app.
+
 ---
 
 # LORE - PROJECT CONTEXT
