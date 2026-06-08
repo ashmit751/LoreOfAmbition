@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "expo-constants": "^56.0.17",
+    "expo-linking": "^56.0.13",
+    "expo-router": "^56.2.9",
+    "nativewind": "^4.2.5",
+    "react-native-css-interop": "^0.2.5",
+    "tailwindcss": "^3.4.19"
+  }
+}
