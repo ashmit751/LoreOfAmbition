@@ -1,31 +1,12 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-
-interface EditScreenInfoProps {
-  path: string;
-}
-
-export const EditScreenInfo: React.FC<EditScreenInfoProps> = ({ path }) => {
-  const title = 'Open up the code for this screen:';
-  const description =
-    'Change any of the text, save the file, and your app will automatically update.';
-
+import "../global.css"
+import { Text, View } from "react-native";
+ 
+export default function App() {
   return (
-    <View>
-      <View className={styles.getStartedContainer}>
-        <Text className={styles.getStartedText}>{title}</Text>
-        <View className={`${styles.codeHighlightContainer} ${styles.homeScreenFilename}`}>
-          <Text>{path}</Text>
-        </View>
-        <Text className={styles.getStartedText}>{description}</Text>
-      </View>
+    <View className="flex-1 items-center justify-center bg-white">
+      <Text className="text-xl font-bold text-blue-500">
+        Welcome to Nativewind!
+      </Text>
     </View>
   );
-};
-
-const styles = {
-  codeHighlightContainer: `rounded-md px-1`,
-  getStartedContainer: `items-center mx-12`,
-  getStartedText: `text-lg leading-6 text-center`,
-  homeScreenFilename: `my-2`,
-};
+}
