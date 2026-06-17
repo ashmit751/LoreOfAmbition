@@ -1,3 +1,6 @@
+// TypeScript may complain about side-effect CSS imports in this React Native / Expo project.
+// Ignore the missing module/type declarations for now.
+// @ts-ignore: Implicit any for CSS import
 import "./global.css"
 import { Text, View } from "react-native";
  
