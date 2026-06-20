@@ -10,6 +10,8 @@ export default function App() {
       <Text className="text-xl font-bold text-textSecondary">
         Welcome to Nativewind!
       </Text>
+      <link href="C:\Users\WIN\Desktop\LoreOfAmbition\Frontend\screens\homescreen.tsx" classname=" mt-4 rounded bg-primary text-textPrimary p-4 ">Get Started </link>
     </View>
   );
+  
 }
