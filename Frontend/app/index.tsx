@@ -1,15 +1,18 @@
+import "../global.css"
+import { Text, View } from "react-native";
+ import {Link} from "expo-router";
 
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Link } from "expo-router"
-
-const index = () => {
+export default function App() {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text >index</Text>
-      <Link href="/_layout.tsx" className="" bg-color="background">Get Started</Link>
-    </View>
-  )
-}
+    <View className="flex-1 items-center justify-center bg-white">
+      <Text className="text-xl font-bold text-blue-500">
+        Welcome to Nativewind!
+      </Text>
 
-export default index
+      <Link href="/_layout.tsx" className="bg-background text-white p-4 rounded-lg">
+        Go to Layout
+      </Link>
+
+    </View>
+  );
+}
