@@ -1,7 +1,7 @@
-import "../global.css"
-import { Text, View } from "react-native";
- import {Link} from "expo-router";
+import{ Text, View } from "react-native";
+import {Link} from "expo-router";
 
+import "@/global.css"
 export default function App() {
   return (
     <View className="flex-1 items-center justify-center bg-background">
@@ -9,9 +9,7 @@ export default function App() {
         Welcome to Nativewind!
       </Text>
 
-      <Link href="/_layout.tsx" className="bg-background text-white p-4 rounded-lg">
-        Go to Layout
-      </Link>
+      
 
     </View>
   );
