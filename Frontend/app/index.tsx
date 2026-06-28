@@ -1,4 +1,3 @@
-import "../global.css"
 import { Text, View } from "react-native";
  import {Link} from "expo-router";
 
@@ -9,8 +8,8 @@ export default function App() {
         Welcome to Nativewind!
       </Text>
 
-      <Link href="/_layout.tsx" className="bg-background text-white p-4 rounded-lg">
-        Go to Layout
+      <Link href="/accounts.tsx" className="bg-background text-white p-4 rounded-lg">
+        Go to Accounts
       </Link>
 
     </View>

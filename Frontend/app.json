@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "my-expo-app",
-    "slug": "my-expo-app",
+    "slug": "myexpoapp",
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png"

@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "jsxImportSource": "nativewind",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "nativewind/jsx-runtime": ["./nativewind-jsx-runtime.d.ts"]
     }
   }
 }
