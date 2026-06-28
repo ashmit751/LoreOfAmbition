@@ -9,13 +9,13 @@ export default function App()  {
         Lore of Ambition
       </Text>
 
-      <Link href="/(app)/accounts.tsx" className="bg-surface text-white p-4 rounded-lg">
+      <Link href="/accounts" className="bg-surface text-white p-4 rounded-lg">
         Go to Accounts
       </Link>
-      <Link href="/(auth)/sign-in" className="bg-surface text-white p-4 rounded-lg">
+      <Link href="/auth/sign-in" className="bg-surface text-white p-4 rounded-lg">
         Go to Sign In
       </Link>
-      <Link href="/(auth)/sign-up" className="bg-surface text-white p-4 rounded-lg">
+      <Link href="/auth/sign-up" className="bg-surface text-white p-4 rounded-lg">
         Go to Sign Up
       </Link>
 
