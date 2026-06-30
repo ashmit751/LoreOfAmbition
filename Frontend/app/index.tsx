@@ -10,10 +10,10 @@ export default function App()  {
       </Text>
       
       <Link href="/auth/sign-in" className="bg-surface text-white p-4 rounded-lg">
-        Go to Sign In
+         Sign In
       </Link>
-      <Link href="/auth/sign-up" className="bg-surface text-white p-4 rounded-lg">
-        Go to Sign Up
+      <Link href="/auth/onboarding" className="bg-surface text-white p-4 rounded-lg">
+        Get Started
       </Link>
 
     </View>

@@ -5,10 +5,10 @@ import { Link } from 'expo-router'
 export default function SignUp() {
   return (
     <View>
-      <Text>sign-up</Text>
-      <Link href ="/auth/sign-in" className="bg-background text-white p-4 rounded-lg">
-        Already have an account? Sign in
-      </Link>
+      <Text className="text-xl font-bold text-primary">
+        About You
+      </Text>
+      
     </View>
   )
 }
