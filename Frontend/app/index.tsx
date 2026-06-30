@@ -8,10 +8,7 @@ export default function App()  {
       <Text className="text-xl font-bold text-blue-500">
         Lore of Ambition
       </Text>
-
-      <Link href="/accounts" className="bg-surface text-white p-4 rounded-lg">
-        Go to Accounts
-      </Link>
+      
       <Link href="/auth/sign-in" className="bg-surface text-white p-4 rounded-lg">
         Go to Sign In
       </Link>
