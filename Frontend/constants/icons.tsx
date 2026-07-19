@@ -21,11 +21,11 @@ export const APP_ICON: ImageSourcePropType = require('../assets/icons/app_icon.p
 // Bottom Nav / Navigation Icons
 // -----------------------------------------------------------------------
 export const NAV_ICONS = {
-  home: require('../assets/icons/nav_home.png'),
-  discover: require('../assets/icons/nav_discover.png'),
-  create: require('../assets/icons/nav_create.png'),
-  challenges: require('../assets/icons/nav_challenges.png'),
-  profile: require('../assets/icons/nav_potfiio.png'),
+  home: require('../assets/icons/navigation/home-icon.png'),
+  discover: require('../assets/icons/navigation/discover-icon.png'),
+  create: require('../assets/icons/navigation/create-icon.png'),
+  challenges: require('../assets/icons/navigation/challenges-icon.png'),
+  profile: require('../assets/icons/navigation/profile-icon.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type NavIconKey = keyof typeof NAV_ICONS;
@@ -47,18 +47,18 @@ export type StatusKey = keyof typeof STATUS_COLORS;
 // Optional: the cropped dot+label PNGs (215x44 each) if you want the image
 // version instead of drawing your own dot with STATUS_COLORS.
 export const STATUS_ICONS = {
-  active: require('../assets/icons/status_active.png'),
-  online: require('../assets/icons/status_online.png'),
-  offline: require('../assets/icons/status_offline.png'),
+  active: require('../assets/icons/status/status_active_215x44.png'),
+  online: require('../assets/icons/status/status_online_215x44.png'),
+  offline: require('../assets/icons/status/status_offline_215x44.png'),
 } as const satisfies Record<StatusKey, ImageSourcePropType>;
 
 // -----------------------------------------------------------------------
 // Top Bar Icons
 // -----------------------------------------------------------------------
 export const TOP_BAR_ICONS = {
-  search: require('../assets/icons/topbar_search.png'),
-  bell: require('../assets/icons/topbar_bell.png'),
-  menu: require('../assets/icons/topbar_menu.png'),
+  search: require('../assets/icons/topbar/topbar-search.png'),
+  notifications: require('../assets/icons/topbar/topbar-bell.png'),
+  menu: require('../assets/icons/topbar/topbar-menu.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type TopBarIconKey = keyof typeof TOP_BAR_ICONS;
@@ -67,10 +67,10 @@ export type TopBarIconKey = keyof typeof TOP_BAR_ICONS;
 // Action Icons
 // -----------------------------------------------------------------------
 export const ACTION_ICONS = {
-  heart: require('../assets/icons/action_heart.png'),
-  gem: require('../assets/icons/action_gem.png'),
-  send: require('../assets/icons/action_paperplane.png'),
-  bookmark: require('../assets/icons/action_bookmark.png'),
+  like: require('../assets/icons/actions/action-like.png'),
+  comment: require('../assets/icons/actions/action-comment.png'),
+  share: require('../assets/icons/actions/action-share.png'),
+  save: require('../assets/icons/actions/action-save.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type ActionIconKey = keyof typeof ACTION_ICONS;
