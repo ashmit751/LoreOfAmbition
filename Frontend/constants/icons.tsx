@@ -104,9 +104,9 @@ export type ChallengeIconKey = keyof typeof CHALLENGE_ICONS;
 // Content Type Icons
 // -----------------------------------------------------------------------
 export const CONTENT_TYPE_ICONS = {
-  post: require('../assets/icons/content_post.png'),
-  bulletin: require('../assets/icons/content_bulletin.png'),
-  challenge: require('../assets/icons/content_challenge.png'),
+  post: require('../assets/icons/content/20_content_post_73x100.png'),
+  bulletin: require('../assets/icons/content/21_content_bulletin_78x100.png'),
+  challenge: require('../assets/icons/content/22_content_challenge_78x100.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type ContentTypeIconKey = keyof typeof CONTENT_TYPE_ICONS;
@@ -115,11 +115,11 @@ export type ContentTypeIconKey = keyof typeof CONTENT_TYPE_ICONS;
 // Avatar Styles (examples)
 // -----------------------------------------------------------------------
 export const AVATAR_STYLES = {
-  wave: require('../assets/icons/avatar_wave.png'),
-  explorer: require('../assets/icons/avatar_hat.png'),
-  beard: require('../assets/icons/avatar_beard.png'),
-  owl: require('../assets/icons/avatar_owl.png'),
-  moon: require('../assets/icons/avatar_moon.png'),
+  wave: require('../assets/avatars/23_avatar_wave_93x108.png'),
+  explorer: require('../assets/avatars/24_avatar_hat_93x108.png'),
+  beard: require('../assets/avatars/25_avatar_beard_93x108.png'),
+  owl: require('../assets/avatars/26_avatar_owl_93x108.png'),
+  moon: require('../assets/avatars/27_avatar_moon_93x108.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type AvatarStyleKey = keyof typeof AVATAR_STYLES;
@@ -147,11 +147,8 @@ export const COLOR_PALETTE = [
 // Logo Mark Variations
 // -----------------------------------------------------------------------
 export const LOGO_MARKS = {
-  minimal: require('../assets/icons/logo_mark_1.png'),
-  wordmarkFull: require('../assets/icons/logo_mark_2.png'),
-  compass: require('../assets/icons/logo_mark_3.png'),
-  wordmark: require('../assets/icons/logo_mark_4.png'),
-} as const satisfies Record<string, ImageSourcePropType>;
+  minimal: require('../assets/logo/app-icon.png'),
+  } as const satisfies Record<string, ImageSourcePropType>;
 
 export type LogoMarkKey = keyof typeof LOGO_MARKS;
 
