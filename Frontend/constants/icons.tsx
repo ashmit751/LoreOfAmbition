@@ -15,7 +15,7 @@ import { ImageSourcePropType } from 'react-native';
 // -----------------------------------------------------------------------
 // App Icon
 // -----------------------------------------------------------------------
-export const APP_ICON: ImageSourcePropType = require('../assets/icons/app_icon.png');
+export const APP_ICON: ImageSourcePropType = require('../assets/logo/app-icon.png');
 
 // -----------------------------------------------------------------------
 // Bottom Nav / Navigation Icons
@@ -79,11 +79,11 @@ export type ActionIconKey = keyof typeof ACTION_ICONS;
 // Badges
 // -----------------------------------------------------------------------
 export const BADGE_ICONS = {
-  streak: require('../assets/icons/badge_streak.png'),
-  consistent: require('../assets/icons/badge_consistent.png'),
-  builder: require('../assets/icons/badge_builder.png'),
-  focused: require('../assets/icons/badge_focused.png'),
-  topCreator: require('../assets/icons/badge_topcreator.png'),
+  streak: require('../assets/badges/15a_badge_streak_196x43.png'),
+  consistent: require('../assets/badges/15b_badge_consistent_196x43.png'),
+  builder: require('../assets/badges/15c_badge_builder_196x43.png'),
+  focused: require('../assets/badges/15d_badge_focused_196x45.png'),
+  topCreator: require('../assets/badges/15e_badge_topcreator_196x42.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type BadgeKey = keyof typeof BADGE_ICONS;
@@ -92,10 +92,10 @@ export type BadgeKey = keyof typeof BADGE_ICONS;
 // Challenge Icons
 // -----------------------------------------------------------------------
 export const CHALLENGE_ICONS = {
-  fire: require('../assets/icons/challenge_fire.png'),
-  mountain: require('../assets/icons/challenge_mountain.png'),
-  target: require('../assets/icons/challenge_target.png'),
-  lightning: require('../assets/icons/challenge_lightning.png'),
+  fire: require('../assets/challenges/16_challenge_fire_78x93.png'),
+  mountain: require('../assets/challenges/17_challenge_mountain_83x93.png'),
+  target: require('../assets/challenges/18_challenge_target_83x93.png'),
+  lightning: require('../assets/challenges/19_challenge_lightning_68x93.png'),
 } as const satisfies Record<string, ImageSourcePropType>;
 
 export type ChallengeIconKey = keyof typeof CHALLENGE_ICONS;
@@ -127,7 +127,7 @@ export type AvatarStyleKey = keyof typeof AVATAR_STYLES;
 // -----------------------------------------------------------------------
 // Loading Animation
 // -----------------------------------------------------------------------
-export const LOADING_ANIMATION: ImageSourcePropType = require('../assets/icons/loading_animation.png');
+
 
 // -----------------------------------------------------------------------
 // Color Palette
