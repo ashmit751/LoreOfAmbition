@@ -1,10 +1,10 @@
-import {icons} from 'constants/icons';
+import {ICONS} from 'constants/icons';
 
 export const tabs = [
-    { name: 'index', icon: icons.home },
-    { name: 'discover', icon: icons.discover },
-    { name: 'create', icon: icons.create },
-    { name: 'challenges', icon: icons.challenges },
-    { name: 'profile', icon: icons.profile },
+    { name: 'index', icon: ICONS.nav.home },
+    { name: 'discover', icon: ICONS.nav.discover },
+    { name: 'create', icon: ICONS.nav.create },
+    { name: 'challenges', icon: ICONS.nav.challenges },
+    { name: 'profile', icon: ICONS.nav.profile },
 
 ];
