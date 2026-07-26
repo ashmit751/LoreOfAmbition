@@ -1,6 +1,6 @@
 {
   "expo": {
-    "icon": "../assests/logo/app-icon.png",
+    "icon": "./assests/logo/app-icon.png",
     "name": "my-expo-app",
     "slug": "myexpoapp",
     "scheme": "myexpoapp",
