@@ -20,7 +20,28 @@ function TabIcon({ focused, icon }: TabIconProps) {
 }
 
 const TabLayout = () => (
-  <Tabs screenOptions={{ headerShown: false }}>
+  <Tabs
+    screenOptions={{
+      headerShown: false,
+      tabBarStyle: {
+        backgroundColor: '#151B2D',   // --color-surface
+        borderTopColor: 'rgba(255, 255, 255, 0.08)', // --color-border
+        borderTopWidth: 1,
+        height: 64,
+        paddingBottom: 10,
+        paddingTop: 8,
+        elevation: 0,
+        shadowOpacity: 0,
+      },
+      tabBarActiveTintColor: '#4D8BFF',    // --color-primary
+      tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.35)',
+      tabBarLabelStyle: {
+        fontSize: 10,
+        fontWeight: '500',
+        marginTop: 2,
+      },
+    }}
+  >
     <Tabs.Screen
       name="index"
       options={{
