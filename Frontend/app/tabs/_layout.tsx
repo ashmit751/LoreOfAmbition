@@ -12,7 +12,7 @@ function TabIcon({ focused, icon }: TabIconProps) {
     )}>
       <Image
         source={icon}
-        className="w-6 h-6"
+        className="w-8 h-8"
         resizeMode="contain"
       />
     </View>
@@ -27,9 +27,9 @@ const TabLayout = () => (
         backgroundColor: '#151B2D',   // --color-surface
         borderTopColor: 'rgba(255, 255, 255, 0.08)', // --color-border
         borderTopWidth: 1,
-        height: 64,
-        paddingBottom: 10,
-        paddingTop: 8,
+        height: 78,
+        paddingBottom: 12,
+        paddingTop: 10,
         elevation: 0,
         shadowOpacity: 0,
       },
@@ -38,10 +38,11 @@ const TabLayout = () => (
       tabBarLabelStyle: {
         fontSize: 10,
         fontWeight: '500',
-        marginTop: 2,
+        marginTop: 3,
       },
     }}
   >
+    {/* 1 — Home */}
     <Tabs.Screen
       name="index"
       options={{
@@ -51,6 +52,7 @@ const TabLayout = () => (
         ),
       }}
     />
+    {/* 2 — Discover */}
     <Tabs.Screen
       name="discover"
       options={{
@@ -60,6 +62,7 @@ const TabLayout = () => (
         ),
       }}
     />
+    {/* 3 — Create */}
     <Tabs.Screen
       name="create"
       options={{
@@ -69,21 +72,23 @@ const TabLayout = () => (
         ),
       }}
     />
-    <Tabs.Screen
-      name="profile"
-      options={{
-        title: 'Profile',
-        tabBarIcon: ({ focused }) => (
-          <TabIcon focused={focused} icon={NAV_ICONS.profile} />
-        ),
-      }}
-    />
+    {/* 4 — Growth Board */}
     <Tabs.Screen
       name="challenges"
       options={{
         title: 'Growth Board',
         tabBarIcon: ({ focused }) => (
           <TabIcon focused={focused} icon={NAV_ICONS.challenges} />
+        ),
+      }}
+    />
+    {/* 5 — Profile */}
+    <Tabs.Screen
+      name="profile"
+      options={{
+        title: 'Profile',
+        tabBarIcon: ({ focused }) => (
+          <TabIcon focused={focused} icon={NAV_ICONS.profile} />
         ),
       }}
     />
