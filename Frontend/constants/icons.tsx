@@ -166,6 +166,6 @@ export const ICONS = {
   challenge: CHALLENGE_ICONS,
   contentType: CONTENT_TYPE_ICONS,
   avatar: AVATAR_STYLES,
-  loading: LOADING_ANIMATION,
+  //loading: LOADING_ANIMATION,
   logoMarks: LOGO_MARKS,
 } as const;
