@@ -1,4 +1,4 @@
-import {ICONS} from 'constants/icons';
+import {ICONS} from '@/constants/icons';
 
 export const tabs = [
     { name: 'index', icon: ICONS.nav.home },

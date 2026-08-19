@@ -6,7 +6,7 @@ export default function SignIn() {
   return (
     <View>
       <Text>sign-in</Text>
-      <Link href ="/auth/sign-up" className="bg-background text-white p-4 rounded-lg">
+      <Link href ="/auth/onboardingstep1" className="bg-background text-white p-4 rounded-lg">
         Don't have an account? Sign up
       </Link>
     </View>

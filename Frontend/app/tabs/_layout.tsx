@@ -31,7 +31,7 @@ const TabLayout = () => (
       }}
     />
     <Tabs.Screen
-      name="Discover"
+      name="discover"
       options={{
         title: 'Discover',
         tabBarIcon: ({ focused }) => (
@@ -40,7 +40,7 @@ const TabLayout = () => (
       }}
     />
     <Tabs.Screen
-      name="Create"
+      name="create"
       options={{
         title: 'Create',
         tabBarIcon: ({ focused }) => (
@@ -49,7 +49,7 @@ const TabLayout = () => (
       }}
     />
     <Tabs.Screen
-      name="Profile"
+      name="profile"
       options={{
         title: 'Profile',
         tabBarIcon: ({ focused }) => (
@@ -58,9 +58,9 @@ const TabLayout = () => (
       }}
     />
     <Tabs.Screen
-      name="Challenges"
+      name="challenges"
       options={{
-        title: 'Challenges',
+        title: 'Growth Board',
         tabBarIcon: ({ focused }) => (
           <TabIcon focused={focused} icon={NAV_ICONS.challenges} />
         ),

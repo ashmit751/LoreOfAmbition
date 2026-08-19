@@ -12,7 +12,7 @@ export default function App()  {
       <Link href="/auth/sign-in" className="bg-surface text-white p-4 rounded-lg">
          Sign In
       </Link>
-      <Link href="/auth/onboarding" className="bg-surface text-white p-4 rounded-lg">
+      <Link href="/auth/onboardingstep1" className="bg-surface text-white p-4 rounded-lg">
         Get Started
       </Link>
 
