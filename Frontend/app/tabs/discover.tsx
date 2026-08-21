@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import "@/global.css"
+import '@/global.css';
 
 const NICHES = ['Programming', 'Design', 'Writing', 'Fitness', 'Business'];
 
@@ -59,51 +59,44 @@ export default function DiscoverScreen() {
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
 
       {/* Topbar */}
-      <View className="px-5 py-3 flex-row items-center justify-between border-b border-white/5">
-        <Text className="text-xl font-bold text-white tracking-wide">Discover</Text>
+      <View className="flex-row items-center justify-between border-b border-white/5 px-5 py-3">
+        <Text className="text-xl font-bold tracking-wide text-white">Discover</Text>
         <TouchableOpacity
           onPress={() => router.push('/notifications')}
-          className="p-2 bg-[#151B2D] border border-[#4D8BFF]/20 rounded-full"
-        >
+          className="rounded-full border border-[#4D8BFF]/20 bg-[#151B2D] p-2">
           <Text className="text-sm">🔔</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView className="flex-1 px-4 pt-3" showsVerticalScrollIndicator={false}>
         {/* Search Bar */}
-        <View className="bg-[#0E1A2E]/80 border border-[#4D8BFF]/15 rounded-xl px-3.5 py-2.5 mb-3.5 flex-row items-center">
-          <Text className="text-sm mr-2 text-white/50">🔍</Text>
+        <View className="mb-3.5 flex-row items-center rounded-xl border border-[#4D8BFF]/15 bg-[#0E1A2E]/80 px-3.5 py-2.5">
+          <Text className="mr-2 text-sm text-white/50">🔍</Text>
           <TextInput
             placeholder="Search creators..."
             placeholderTextColor="rgba(255,255,255,0.4)"
             value={search}
             onChangeText={setSearch}
-            className="flex-1 text-xs text-white p-0"
+            className="flex-1 p-0 text-xs text-white"
           />
         </View>
 
         {/* Niche Filter Pills */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="mb-4 flex-row"
-        >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-4 flex-row">
           <View className="flex-row gap-2">
             {NICHES.map((niche) => (
               <TouchableOpacity
                 key={niche}
                 onPress={() => setSelectedNiche(niche)}
-                className={`px-3 py-1.5 rounded-[10px] border ${
+                className={`rounded-[10px] border px-3 py-1.5 ${
                   selectedNiche === niche
-                    ? 'bg-[#4D8BFF] border-[#4D8BFF]'
-                    : 'bg-[#4D8BFF]/10 border-[#4D8BFF]/20'
-                }`}
-              >
+                    ? 'border-[#4D8BFF] bg-[#4D8BFF]'
+                    : 'border-[#4D8BFF]/20 bg-[#4D8BFF]/10'
+                }`}>
                 <Text
                   className={`text-[10px] font-medium ${
-                    selectedNiche === niche ? 'text-white font-semibold' : 'text-white/60'
-                  }`}
-                >
+                    selectedNiche === niche ? 'font-semibold text-white' : 'text-white/60'
+                  }`}>
                   {niche}
                 </Text>
               </TouchableOpacity>
@@ -118,32 +111,23 @@ export default function DiscoverScreen() {
             return (
               <View
                 key={creator.id}
-                className="bg-[#151B2D]/80 border border-[#4D8BFF]/10 rounded-[18px] p-4 items-center"
-              >
-                <Text className="text-3xl mb-2">{creator.avatar}</Text>
-                <Text className="text-xs font-semibold text-white mb-0.5">
-                  {creator.name}
-                </Text>
-                <Text className="text-[10px] text-white/50 mb-1.5">
-                  {creator.niche}
-                </Text>
-                <Text className="text-[10px] text-[#FF9650] font-medium mb-3">
+                className="items-center rounded-[18px] border border-[#4D8BFF]/10 bg-[#151B2D]/80 p-4">
+                <Text className="mb-2 text-3xl">{creator.avatar}</Text>
+                <Text className="mb-0.5 text-xs font-semibold text-white">{creator.name}</Text>
+                <Text className="mb-1.5 text-[10px] text-white/50">{creator.niche}</Text>
+                <Text className="mb-3 text-[10px] font-medium text-[#FF9650]">
                   🔥 {creator.streak} Day Streak
                 </Text>
 
                 <TouchableOpacity
                   onPress={() => toggleFollow(creator.id)}
-                  className={`w-full py-2 rounded-[10px] items-center justify-center ${
-                    isFollowing
-                      ? 'bg-transparent border border-[#4D8BFF]/40'
-                      : 'bg-[#4D8BFF]'
-                  }`}
-                >
+                  className={`w-full items-center justify-center rounded-[10px] py-2 ${
+                    isFollowing ? 'border border-[#4D8BFF]/40 bg-transparent' : 'bg-[#4D8BFF]'
+                  }`}>
                   <Text
                     className={`text-xs font-semibold ${
                       isFollowing ? 'text-[#4D8BFF]' : 'text-white'
-                    }`}
-                  >
+                    }`}>
                     {isFollowing ? 'Following' : '+ Follow'}
                   </Text>
                 </TouchableOpacity>
@@ -154,4 +138,4 @@ export default function DiscoverScreen() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+}

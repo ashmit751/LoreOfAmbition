@@ -1,25 +1,117 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import '@/global.css';
+
+const NICHES = [
+  'Programming',
+  'Design',
+  'Writing',
+  'Fitness',
+  'Business',
+  'Art & Animation',
+  'Music & Audio',
+  'Filmmaking',
+];
 
 export default function OnboardingStep2() {
+  const router = useRouter();
+  const [selectedNiche, setSelectedNiche] = useState(NICHES[0]);
+  const [youtube, setYoutube] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [github, setGithub] = useState('');
+  const [instagram, setInstagram] = useState('');
+
   return (
-    <View className="flex-1 bg-background px-6 pt-16">
-      {/* Step indicator */}
-      <Text className="text-text-muted text-xs mb-2 tracking-widest uppercase">Step 2 of 3</Text>
-      <Text className="text-2xl font-bold text-text mb-1">Your Creator World</Text>
-      <Text className="text-text-muted text-sm mb-10">
-        What niche are you in? Where do you create? Link up to 4 platforms.
-      </Text>
+    <SafeAreaView className="flex-1 bg-[#08111F]">
+      <StatusBar barStyle="light-content" backgroundColor="#08111F" />
+      <ScrollView className="flex-1 px-6 pt-6" showsVerticalScrollIndicator={false}>
+        {/* Step indicator */}
+        <Text className="mb-1.5 text-[10px] font-semibold tracking-widest text-[#4D8BFF] uppercase">
+          Step 2 of 3
+        </Text>
+        <Text className="mb-1 text-2xl font-bold text-white">Your Creator World</Text>
+        <Text className="mb-6 text-xs text-white/50">
+          What niche are you in? Link up to 4 platforms.
+        </Text>
 
-      {/* TODO: niche selector, platform checkboxes, up to 4 social link inputs */}
+        {/* Niche Selector */}
+        <Text className="mb-2.5 text-[10px] font-semibold text-white/60 uppercase">
+          Select Primary Niche
+        </Text>
+        <View className="mb-6 flex-row flex-wrap gap-2">
+          {NICHES.map((niche) => (
+            <TouchableOpacity
+              key={niche}
+              onPress={() => setSelectedNiche(niche)}
+              className={`rounded-xl border px-3.5 py-2 ${
+                selectedNiche === niche
+                  ? 'border-[#4D8BFF] bg-[#4D8BFF]'
+                  : 'border-[#4D8BFF]/15 bg-[#151B2D]'
+              }`}>
+              <Text
+                className={`text-xs ${
+                  selectedNiche === niche ? 'font-semibold text-white' : 'text-white/60'
+                }`}>
+                {niche}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      <Link
-        href="/auth/onboardingstep3"
-        className="bg-primary text-white p-4 rounded-xl w-full text-center font-semibold mt-auto"
-      >
-        Continue
-      </Link>
-    </View>
-  )
-}
+        {/* Social Links */}
+        <Text className="mb-2.5 text-[10px] font-semibold text-white/60 uppercase">
+          Connected Platforms (Corners of Hexagon)
+        </Text>
+        <View className="mb-8 gap-3">
+          <TextInput
+            placeholder="YouTube (e.g. youtube.com/@channel)"
+            placeholderTextColor="rgba(255,255,255,0.4)"
+            value={youtube}
+            onChangeText={setYoutube}
+            autoCapitalize="none"
+            className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+          />
+          <TextInput
+            placeholder="X / Twitter (e.g. x.com/username)"
+            placeholderTextColor="rgba(255,255,255,0.4)"
+            value={twitter}
+            onChangeText={setTwitter}
+            autoCapitalize="none"
+            className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+          />
+          <TextInput
+            placeholder="GitHub (e.g. github.com/username)"
+            placeholderTextColor="rgba(255,255,255,0.4)"
+            value={github}
+            onChangeText={setGithub}
+            autoCapitalize="none"
+            className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+          />
+          <TextInput
+            placeholder="Instagram (e.g. instagram.com/username)"
+            placeholderTextColor="rgba(255,255,255,0.4)"
+            value={instagram}
+            onChangeText={setInstagram}
+            autoCapitalize="none"
+            className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+          />
+        </View>
+
+        <TouchableOpacity
+          onPress={() => router.push('/auth/onboardingstep3')}
+          className="mb-8 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-3">
+          <Text className="text-xs font-bold text-white">Continue</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}

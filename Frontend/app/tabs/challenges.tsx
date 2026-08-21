@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
-import "@/global.css"
+import '@/global.css';
 
 const CHALLENGES = [
   {
@@ -42,12 +35,11 @@ export default function ChallengesScreen() {
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
 
       {/* Topbar */}
-      <View className="px-5 py-3 flex-row items-center justify-between border-b border-white/5">
-        <Text className="text-xl font-bold text-white tracking-wide">Challenges</Text>
+      <View className="flex-row items-center justify-between border-b border-white/5 px-5 py-3">
+        <Text className="text-xl font-bold tracking-wide text-white">Challenges</Text>
         <TouchableOpacity
           onPress={() => router.push('/notifications')}
-          className="p-2 bg-[#151B2D] border border-[#4D8BFF]/20 rounded-full"
-        >
+          className="rounded-full border border-[#4D8BFF]/20 bg-[#151B2D] p-2">
           <Text className="text-sm">🔔</Text>
         </TouchableOpacity>
       </View>
@@ -56,8 +48,7 @@ export default function ChallengesScreen() {
         {/* Create Challenge Action */}
         <TouchableOpacity
           onPress={() => router.push('/tabs/create')}
-          className="w-full bg-[#4D8BFF] py-2.5 rounded-xl items-center justify-center mb-4"
-        >
+          className="mb-4 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-2.5">
           <Text className="text-xs font-semibold text-white">+ Create Challenge</Text>
         </TouchableOpacity>
 
@@ -66,12 +57,11 @@ export default function ChallengesScreen() {
           {CHALLENGES.map((item) => (
             <View
               key={item.id}
-              className="bg-[#4D8BFF]/[0.08] border border-[#4D8BFF]/20 rounded-[14px] p-3.5"
-            >
-              <Text className="text-xs font-bold text-white mb-2.5">{item.title}</Text>
-              
+              className="rounded-[14px] border border-[#4D8BFF]/20 bg-[#4D8BFF]/[0.08] p-3.5">
+              <Text className="mb-2.5 text-xs font-bold text-white">{item.title}</Text>
+
               {/* Progress Bar */}
-              <View className="w-full h-1.5 bg-[#4D8BFF]/15 rounded-full overflow-hidden mb-2">
+              <View className="mb-2 h-1.5 w-full overflow-hidden rounded-full bg-[#4D8BFF]/15">
                 <View
                   style={{
                     width: `${item.progress}%`,
@@ -81,20 +71,18 @@ export default function ChallengesScreen() {
                 />
               </View>
 
-              <Text className="text-[10px] text-white/60 mb-2.5">{item.meta}</Text>
+              <Text className="mb-2.5 text-[10px] text-white/60">{item.meta}</Text>
 
               {item.isCompleted ? (
                 <TouchableOpacity
                   onPress={() => router.push(`/challenge/${item.id}`)}
-                  className="w-full bg-[#4CAF50]/80 py-2 rounded-[10px] items-center justify-center"
-                >
+                  className="w-full items-center justify-center rounded-[10px] bg-[#4CAF50]/80 py-2">
                   <Text className="text-[11px] font-semibold text-white">View Details</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
                   onPress={() => router.push(`/challenge/${item.id}`)}
-                  className="w-full bg-transparent border border-[#4D8BFF]/30 py-2 rounded-[10px] items-center justify-center"
-                >
+                  className="w-full items-center justify-center rounded-[10px] border border-[#4D8BFF]/30 bg-transparent py-2">
                   <Text className="text-[11px] font-semibold text-[#4D8BFF]">Continue →</Text>
                 </TouchableOpacity>
               )}
@@ -104,4 +92,4 @@ export default function ChallengesScreen() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+}

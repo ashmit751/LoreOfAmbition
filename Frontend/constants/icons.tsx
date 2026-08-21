@@ -128,7 +128,6 @@ export type AvatarStyleKey = keyof typeof AVATAR_STYLES;
 // Loading Animation
 // -----------------------------------------------------------------------
 
-
 // -----------------------------------------------------------------------
 // Color Palette
 // Sampled directly from the swatches you generated.
@@ -148,7 +147,7 @@ export const COLOR_PALETTE = [
 // -----------------------------------------------------------------------
 export const LOGO_MARKS = {
   minimal: require('../assets/logo/app-icon.png'),
-  } as const satisfies Record<string, ImageSourcePropType>;
+} as const satisfies Record<string, ImageSourcePropType>;
 
 export type LogoMarkKey = keyof typeof LOGO_MARKS;
 

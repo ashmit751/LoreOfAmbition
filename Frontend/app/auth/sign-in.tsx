@@ -1,26 +1,53 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { Link, useRouter } from 'expo-router';
+import '@/global.css';
 
 export default function SignIn() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <View className="flex-1 items-center justify-center bg-background px-6">
-      <Text className="text-2xl font-bold text-text mb-2">Welcome back</Text>
-      <Text className="text-text-muted text-sm mb-8">Build your lore.</Text>
+    <SafeAreaView className="flex-1 bg-[#08111F]">
+      <StatusBar barStyle="light-content" backgroundColor="#08111F" />
+      <View className="flex-1 items-center justify-center px-6">
+        <View className="mb-4 h-12 w-12 items-center justify-center rounded-2xl border border-[#4D8BFF]/30 bg-[#4D8BFF]/20">
+          <Text className="text-2xl">⚡</Text>
+        </View>
 
-      {/* TODO: email + password fields + Supabase sign-in call */}
+        <Text className="mb-1.5 text-2xl font-bold text-white">Welcome back</Text>
+        <Text className="mb-8 text-xs text-white/50">Build your lore.</Text>
 
-      {/* On successful sign-in → go to main app */}
-      <Link
-        href="/tabs"
-        className="bg-primary text-white p-4 rounded-xl w-full text-center font-semibold mb-4"
-      >
-        Sign In
-      </Link>
+        <View className="mb-5 w-full gap-3">
+          <TextInput
+            placeholder="Email address"
+            placeholderTextColor="rgba(255,255,255,0.4)"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+          />
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="rgba(255,255,255,0.4)"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+          />
+        </View>
 
-      <Link href="/auth/sign-up" className="text-text-muted text-sm">
-        Don't have an account? Sign up
-      </Link>
-    </View>
-  )
+        <TouchableOpacity
+          onPress={() => router.replace('/tabs')}
+          className="mb-4 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-3">
+          <Text className="text-xs font-bold text-white">Sign In</Text>
+        </TouchableOpacity>
+
+        <Link href="/auth/sign-up" className="text-xs text-white/50">
+          Don&apos;t have an account? <Text className="font-semibold text-[#4D8BFF]">Sign up</Text>
+        </Link>
+      </View>
+    </SafeAreaView>
+  );
 }

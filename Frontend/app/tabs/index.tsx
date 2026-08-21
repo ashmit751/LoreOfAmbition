@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
-import "@/global.css"
+import '@/global.css';
 
 export default function HomeFeed() {
   const router = useRouter();
@@ -30,60 +23,55 @@ export default function HomeFeed() {
   return (
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
-      
+
       {/* Topbar */}
-      <View className="px-5 py-3 flex-row items-center justify-between border-b border-white/5">
-        <Text className="text-xl font-bold text-white tracking-wide">Lore</Text>
+      <View className="flex-row items-center justify-between border-b border-white/5 px-5 py-3">
+        <Text className="text-xl font-bold tracking-wide text-white">Lore</Text>
         <TouchableOpacity
           onPress={() => router.push('/notifications')}
-          className="p-2 bg-[#151B2D] border border-[#4D8BFF]/20 rounded-full"
-        >
+          className="rounded-full border border-[#4D8BFF]/20 bg-[#151B2D] p-2">
           <Text className="text-sm">🔔</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView className="flex-1 px-4 pt-3" showsVerticalScrollIndicator={false}>
         {/* Explore / Following Tab Switcher */}
-        <View className="flex-row gap-2 mb-4">
+        <View className="mb-4 flex-row gap-2">
           <TouchableOpacity
             onPress={() => setActiveTab('explore')}
-            className={`flex-1 py-2.5 rounded-xl border items-center justify-center ${
+            className={`flex-1 items-center justify-center rounded-xl border py-2.5 ${
               activeTab === 'explore'
-                ? 'bg-[#4D8BFF] border-[#4D8BFF]'
-                : 'bg-[#4D8BFF]/[0.08] border-[#4D8BFF]/15'
-            }`}
-          >
+                ? 'border-[#4D8BFF] bg-[#4D8BFF]'
+                : 'border-[#4D8BFF]/15 bg-[#4D8BFF]/[0.08]'
+            }`}>
             <Text
               className={`text-xs font-semibold ${
                 activeTab === 'explore' ? 'text-white' : 'text-white/60'
-              }`}
-            >
+              }`}>
               Explore
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => setActiveTab('following')}
-            className={`flex-1 py-2.5 rounded-xl border items-center justify-center ${
+            className={`flex-1 items-center justify-center rounded-xl border py-2.5 ${
               activeTab === 'following'
-                ? 'bg-[#4D8BFF] border-[#4D8BFF]'
-                : 'bg-[#4D8BFF]/[0.08] border-[#4D8BFF]/15'
-            }`}
-          >
+                ? 'border-[#4D8BFF] bg-[#4D8BFF]'
+                : 'border-[#4D8BFF]/15 bg-[#4D8BFF]/[0.08]'
+            }`}>
             <Text
               className={`text-xs font-semibold ${
                 activeTab === 'following' ? 'text-white' : 'text-white/60'
-              }`}
-            >
+              }`}>
               Following
             </Text>
           </TouchableOpacity>
         </View>
 
         {/* Pinned Activity Strip */}
-        <View className="bg-[#3D5A9A]/15 border border-[#4D8BFF]/20 rounded-[14px] p-3 mb-3 flex-row items-center gap-2.5">
+        <View className="mb-3 flex-row items-center gap-2.5 rounded-[14px] border border-[#4D8BFF]/20 bg-[#3D5A9A]/15 p-3">
           <Text className="text-base">📌</Text>
-          <Text className="text-xs text-white/90 font-medium flex-1">
+          <Text className="flex-1 text-xs font-medium text-white/90">
             4 creators started new challenges today
           </Text>
         </View>
@@ -92,24 +80,23 @@ export default function HomeFeed() {
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => router.push('/post/1')}
-          className="bg-[#151B2D]/80 border border-[#4D8BFF]/10 rounded-[18px] p-4 mb-3"
-        >
+          className="mb-3 rounded-[18px] border border-[#4D8BFF]/10 bg-[#151B2D]/80 p-4">
           {/* Project Badges */}
-          <View className="flex-row flex-wrap gap-1.5 mb-2.5">
-            <View className="bg-[#4D8BFF]/15 rounded-full px-2.5 py-1">
+          <View className="mb-2.5 flex-row flex-wrap gap-1.5">
+            <View className="rounded-full bg-[#4D8BFF]/15 px-2.5 py-1">
               <Text className="text-[10px] font-semibold text-[#4D8BFF]">Lore of Ambition</Text>
             </View>
-            <View className="bg-[#4D8BFF]/15 rounded-full px-2.5 py-1">
+            <View className="rounded-full bg-[#4D8BFF]/15 px-2.5 py-1">
               <Text className="text-[10px] font-semibold text-[#4D8BFF]">Programming</Text>
             </View>
-            <View className="bg-[#4D8BFF]/15 rounded-full px-2.5 py-1">
+            <View className="rounded-full bg-[#4D8BFF]/15 px-2.5 py-1">
               <Text className="text-[10px] font-semibold text-[#4D8BFF]">Day 14</Text>
             </View>
           </View>
 
           {/* Post Header */}
-          <View className="flex-row items-center gap-3 mb-3">
-            <View className="w-10 h-10 rounded-full bg-[#4D8BFF]/20 items-center justify-center">
+          <View className="mb-3 flex-row items-center gap-3">
+            <View className="h-10 w-10 items-center justify-center rounded-full bg-[#4D8BFF]/20">
               <Text className="text-sm font-bold text-white">DV</Text>
             </View>
             <View className="flex-1">
@@ -119,24 +106,22 @@ export default function HomeFeed() {
           </View>
 
           {/* Post Body */}
-          <Text className="text-xs text-white/90 leading-5 mb-3">
+          <Text className="mb-3 text-xs leading-5 text-white/90">
             finally got authentication working after 3 days 🔥
           </Text>
 
           {/* Post Actions */}
-          <View className="flex-row items-center gap-5 pt-1 border-t border-white/5">
+          <View className="flex-row items-center gap-5 border-t border-white/5 pt-1">
             <TouchableOpacity
               onPress={() => toggleLike('post1')}
-              className="flex-row items-center gap-1.5"
-            >
+              className="flex-row items-center gap-1.5">
               <Text className="text-xs">{liked['post1'] ? '❤️' : '🤍'}</Text>
               <Text className="text-[11px] text-white/50">{likes['post1']}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => router.push('/post/1')}
-              className="flex-row items-center gap-1.5"
-            >
+              className="flex-row items-center gap-1.5">
               <Text className="text-xs">💬</Text>
               <Text className="text-[11px] text-white/50">12</Text>
             </TouchableOpacity>
@@ -149,10 +134,11 @@ export default function HomeFeed() {
         </TouchableOpacity>
 
         {/* Pinned Bullet 2 */}
-        <View className="bg-[#3D5A9A]/15 border border-[#4D8BFF]/20 rounded-[14px] p-3 mb-3 flex-row items-center gap-2.5">
+        <View className="mb-3 flex-row items-center gap-2.5 rounded-[14px] border border-[#4D8BFF]/20 bg-[#3D5A9A]/15 p-3">
           <Text className="text-base">📌</Text>
-          <Text className="text-xs text-white/90 flex-1">
-            <Text className="font-semibold text-white">React Learning</Text> • Week 2: Components & Hooks
+          <Text className="flex-1 text-xs text-white/90">
+            <Text className="font-semibold text-white">React Learning</Text> • Week 2: Components &
+            Hooks
           </Text>
         </View>
 
@@ -160,24 +146,23 @@ export default function HomeFeed() {
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => router.push('/post/2')}
-          className="bg-[#151B2D]/80 border border-[#4D8BFF]/10 rounded-[18px] p-4 mb-5"
-        >
+          className="mb-5 rounded-[18px] border border-[#4D8BFF]/10 bg-[#151B2D]/80 p-4">
           {/* Project Badges */}
-          <View className="flex-row flex-wrap gap-1.5 mb-2.5">
-            <View className="bg-[#4D8BFF]/15 rounded-full px-2.5 py-1">
+          <View className="mb-2.5 flex-row flex-wrap gap-1.5">
+            <View className="rounded-full bg-[#4D8BFF]/15 px-2.5 py-1">
               <Text className="text-[10px] font-semibold text-[#4D8BFF]">Design System V2</Text>
             </View>
-            <View className="bg-[#4D8BFF]/15 rounded-full px-2.5 py-1">
+            <View className="rounded-full bg-[#4D8BFF]/15 px-2.5 py-1">
               <Text className="text-[10px] font-semibold text-[#4D8BFF]">Design</Text>
             </View>
-            <View className="bg-[#4D8BFF]/15 rounded-full px-2.5 py-1">
+            <View className="rounded-full bg-[#4D8BFF]/15 px-2.5 py-1">
               <Text className="text-[10px] font-semibold text-[#4D8BFF]">Week 5</Text>
             </View>
           </View>
 
           {/* Post Header */}
-          <View className="flex-row items-center gap-3 mb-3">
-            <View className="w-10 h-10 rounded-full bg-[#5CC994]/20 items-center justify-center">
+          <View className="mb-3 flex-row items-center gap-3">
+            <View className="h-10 w-10 items-center justify-center rounded-full bg-[#5CC994]/20">
               <Text className="text-sm font-bold text-[#5CC994]">SR</Text>
             </View>
             <View className="flex-1">
@@ -187,24 +172,22 @@ export default function HomeFeed() {
           </View>
 
           {/* Post Body */}
-          <Text className="text-xs text-white/90 leading-5 mb-3">
+          <Text className="mb-3 text-xs leading-5 text-white/90">
             redesigned landing page. Much happier with the flow 🎨
           </Text>
 
           {/* Post Actions */}
-          <View className="flex-row items-center gap-5 pt-1 border-t border-white/5">
+          <View className="flex-row items-center gap-5 border-t border-white/5 pt-1">
             <TouchableOpacity
               onPress={() => toggleLike('post2')}
-              className="flex-row items-center gap-1.5"
-            >
+              className="flex-row items-center gap-1.5">
               <Text className="text-xs">{liked['post2'] ? '❤️' : '🤍'}</Text>
               <Text className="text-[11px] text-white/50">{likes['post2']}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => router.push('/post/2')}
-              className="flex-row items-center gap-1.5"
-            >
+              className="flex-row items-center gap-1.5">
               <Text className="text-xs">💬</Text>
               <Text className="text-[11px] text-white/50">8</Text>
             </TouchableOpacity>
