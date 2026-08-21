@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import { healthRouter } from './routes/health.js';
+import { authRouter } from './routes/auth.js';
 import { profilesRouter } from './routes/profiles.js';
 import { loreRouter } from './routes/lore.js';
 import { discoverRouter } from './routes/discover.js';
@@ -18,6 +19,7 @@ app.use(express.json({ limit: '1mb' }));
 
 app.use('/health', healthRouter);
 app.use('/api/health', healthRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/profiles', profilesRouter);
 app.use('/api/lore-posts', loreRouter);
 app.use('/api/discover', discoverRouter);

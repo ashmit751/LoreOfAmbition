@@ -2,101 +2,145 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
   StatusBar,
+  Platform,
+  Alert,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import { authApi } from '@/lib/api';
+import { APP_ICON } from '@/constants/icons';
 import '@/global.css';
-
-const AVATARS = ['👨‍💻', '🎨', '🚀', '🎬', '✍️', '⚡'];
 
 export default function OnboardingStep1() {
   const router = useRouter();
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const params = useLocalSearchParams();
+  const initialUsername = typeof params.username === 'string' ? params.username : '';
+
+  const [displayName, setDisplayName] = useState(initialUsername);
   const [bio, setBio] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]);
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
+
+  const handlePickAvatar = () => {
+    // In React Native/Expo, image picker can be triggered here
+    setAvatarUri('picked');
+    Alert.alert('Avatar Selected', 'Profile image avatar uploaded!');
+  };
+
+  const handleContinue = async () => {
+    if (!displayName.trim()) {
+      Alert.alert('Display Name', 'Please enter a display name for other creators to see.');
+      return;
+    }
+
+    try {
+      await authApi.saveOnboarding({
+        display_name: displayName.trim(),
+        bio: bio.trim(),
+      });
+    } catch (e) {
+      console.warn(e);
+    }
+
+    router.push('/auth/onboardingstep2');
+  };
+
+  // Hard top margin for Android & iOS notches just like Instagram
+  const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 14 : 20;
 
   return (
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
-      <ScrollView className="flex-1 px-6 pt-6" showsVerticalScrollIndicator={false}>
-        {/* Step indicator */}
-        <Text className="mb-1.5 text-[10px] font-semibold tracking-widest text-[#4D8BFF] uppercase">
-          Step 1 of 3
-        </Text>
-        <Text className="mb-1 text-2xl font-bold text-white">About You</Text>
-        <Text className="mb-6 text-xs text-white/50">
-          Tell us who you are and what you&apos;re building.
-        </Text>
 
-        {/* Avatar Picker */}
-        <Text className="mb-2 text-[10px] font-semibold text-white/60 uppercase">
-          Choose Avatar
-        </Text>
-        <View className="mb-5 flex-row flex-wrap gap-3">
-          {AVATARS.map((av) => (
-            <TouchableOpacity
-              key={av}
-              onPress={() => setSelectedAvatar(av)}
-              className={`h-12 w-12 items-center justify-center rounded-2xl border ${
-                selectedAvatar === av
-                  ? 'border-[#4D8BFF] bg-[#4D8BFF]/25'
-                  : 'border-white/5 bg-[#151B2D]'
-              }`}>
-              <Text className="text-xl">{av}</Text>
-            </TouchableOpacity>
-          ))}
+      {/* Instagram-style Top Header Bar with Hard Top Margin & Logo */}
+      <View
+        style={{ paddingTop: hardTopPadding }}
+        className="flex-row items-center justify-center border-b border-white/5 bg-[#08111F] px-5 pb-3.5">
+        <View className="flex-row items-center gap-2">
+          <Image source={APP_ICON} className="h-7 w-7 rounded-lg" resizeMode="contain" />
+          <Text className="text-xl font-extrabold tracking-wider text-white">Lore</Text>
+        </View>
+      </View>
+
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        className="px-6 pt-4"
+        showsVerticalScrollIndicator={false}>
+        {/* Step Progress Indicators */}
+        <View className="mt-1 mb-6 items-center">
+          <View className="mb-3 flex-row items-center gap-2">
+            <View className="h-1 w-10 rounded-full bg-[#4D8BFF]" />
+            <View className="h-1 w-10 rounded-full bg-white/20" />
+            <View className="h-1 w-10 rounded-full bg-white/20" />
+          </View>
+          <Text className="text-xs font-medium text-white/50">Step 1 of 3</Text>
+        </View>
+
+        {/* Heading */}
+        <View className="mb-8 items-center">
+          <Text className="mb-1.5 text-2xl font-bold text-white">About you</Text>
+          <Text className="text-xs text-white/50">Tell other creators who you are</Text>
+        </View>
+
+        {/* Avatar Upload Placeholder with Camera Badge */}
+        <View className="mb-8 items-center">
+          <TouchableOpacity onPress={handlePickAvatar} activeOpacity={0.8} className="relative">
+            <View className="h-24 w-24 items-center justify-center rounded-full border border-white/10 bg-[#151B2D]">
+              {avatarUri ? (
+                <Text className="text-3xl">👨‍💻</Text>
+              ) : (
+                <Text className="text-3xl text-white/20">👤</Text>
+              )}
+            </View>
+            {/* Camera Badge Overlay */}
+            <View className="absolute right-0 bottom-0 h-7 w-7 items-center justify-center rounded-full border-2 border-[#08111F] bg-[#4D8BFF]">
+              <Text className="text-xs">📷</Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* Input Fields */}
-        <View className="mb-8 gap-3.5">
-          <View>
-            <Text className="mb-1.5 text-[10px] font-semibold text-white/60">Display Name</Text>
+        <View className="mb-8 gap-4">
+          {/* Display Name Input */}
+          <View className="flex-row items-center rounded-2xl border border-[#4D8BFF]/20 bg-[#151B2D]/90 px-4 py-3.5">
+            <Text className="mr-3 text-sm text-[#4D8BFF]">👤</Text>
             <TextInput
-              placeholder="e.g. Devraj Sharma"
+              placeholder="Display name"
               placeholderTextColor="rgba(255,255,255,0.4)"
-              value={name}
-              onChangeText={setName}
-              className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
+              value={displayName}
+              onChangeText={setDisplayName}
+              className="flex-1 p-0 text-sm text-white"
             />
           </View>
 
-          <View>
-            <Text className="mb-1.5 text-[10px] font-semibold text-white/60">Username</Text>
+          {/* Bio Input */}
+          <View className="rounded-2xl border border-[#4D8BFF]/20 bg-[#151B2D]/90 px-4 py-3.5">
             <TextInput
-              placeholder="e.g. devraj"
-              placeholderTextColor="rgba(255,255,255,0.4)"
-              value={username}
-              onChangeText={setUsername}
-              autoCapitalize="none"
-              className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
-            />
-          </View>
-
-          <View>
-            <Text className="mb-1.5 text-[10px] font-semibold text-white/60">Bio</Text>
-            <TextInput
-              placeholder="Building in public, learning full stack..."
+              placeholder="Bio (optional)"
               placeholderTextColor="rgba(255,255,255,0.4)"
               multiline
-              numberOfLines={2}
+              numberOfLines={4}
               value={bio}
               onChangeText={setBio}
-              className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
-              style={{ textAlignVertical: 'top' }}
+              className="p-0 text-sm text-white"
+              style={{ minHeight: 90, textAlignVertical: 'top' }}
             />
           </View>
         </View>
 
-        <TouchableOpacity
-          onPress={() => router.push('/auth/onboardingstep2')}
-          className="mb-8 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-3">
-          <Text className="text-xs font-bold text-white">Continue</Text>
-        </TouchableOpacity>
+        {/* Continue Button */}
+        <View className="mt-auto pb-4">
+          <TouchableOpacity
+            onPress={handleContinue}
+            activeOpacity={0.85}
+            className="w-full items-center justify-center rounded-2xl bg-[#4D8BFF] py-4 shadow-lg shadow-[#4D8BFF]/20">
+            <Text className="text-sm font-bold text-white">Continue</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

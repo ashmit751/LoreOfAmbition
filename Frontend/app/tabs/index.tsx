@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
+  Platform,
+} from 'react-native';
 import { useRouter } from 'expo-router';
+import { APP_ICON } from '@/constants/icons';
 import '@/global.css';
 
 export default function HomeFeed() {
@@ -20,13 +30,20 @@ export default function HomeFeed() {
     });
   };
 
+  const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 14 : 20;
+
   return (
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
 
-      {/* Topbar */}
-      <View className="flex-row items-center justify-between border-b border-white/5 px-5 py-3">
-        <Text className="text-xl font-bold tracking-wide text-white">Lore</Text>
+      {/* Instagram-style Top Header Bar with Logo & Hard Top Margin */}
+      <View
+        style={{ paddingTop: hardTopPadding }}
+        className="flex-row items-center justify-between border-b border-white/5 bg-[#08111F] px-5 pb-3.5">
+        <View className="flex-row items-center gap-2.5">
+          <Image source={APP_ICON} className="h-7 w-7 rounded-lg" resizeMode="contain" />
+          <Text className="text-xl font-bold tracking-wide text-white">Lore</Text>
+        </View>
         <TouchableOpacity
           onPress={() => router.push('/notifications')}
           className="rounded-full border border-[#4D8BFF]/20 bg-[#151B2D] p-2">

@@ -1,6 +1,6 @@
 import { Redirect } from 'expo-router';
 
 export default function Index() {
-  // TODO: check Supabase session — redirect to /tabs if already signed in
-  return <Redirect href="/auth/sign-in" />;
+  // Temporary: direct to Onboarding Step 1 for active preview
+  return <Redirect href="/auth/onboardingstep1" />;
 }

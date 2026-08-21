@@ -1,6 +1,15 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
 import { useRouter } from 'expo-router';
+import { APP_ICON } from '@/constants/icons';
 import '@/global.css';
 
 export default function ChallengeDetailScreen() {
@@ -10,12 +19,15 @@ export default function ChallengeDetailScreen() {
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
 
-      {/* Topbar */}
-      <View className="flex-row items-center gap-3 border-b border-white/5 px-4 py-3">
-        <TouchableOpacity onPress={() => router.back()} className="-ml-2 rounded-full p-2">
-          <Text className="text-base text-white">←</Text>
-        </TouchableOpacity>
-        <Text className="text-base font-bold text-white">30 Day Build</Text>
+      {/* Topbar with App Logo & Hard Top Margin */}
+      <View className="flex-row items-center justify-between border-b border-white/5 px-4 pt-3 pb-3">
+        <View className="flex-row items-center gap-2.5">
+          <TouchableOpacity onPress={() => router.back()} className="-ml-1 rounded-full p-2">
+            <Text className="text-base text-white">←</Text>
+          </TouchableOpacity>
+          <Image source={APP_ICON} className="h-6 w-6 rounded-md" resizeMode="contain" />
+          <Text className="text-lg font-bold text-white">30 Day Build</Text>
+        </View>
       </View>
 
       <ScrollView className="flex-1 px-4 pt-4" showsVerticalScrollIndicator={false}>
