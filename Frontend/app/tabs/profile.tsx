@@ -17,7 +17,7 @@ export default function ProfileScreen() {
   const router = useRouter();
   const [profileTab, setProfileTab] = useState<'posts' | 'bulletins' | 'challenges'>('posts');
 
-  const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 14 : 20;
+  const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 24 : 32;
 
   return (
     <SafeAreaView className="flex-1 bg-[#08111F]">

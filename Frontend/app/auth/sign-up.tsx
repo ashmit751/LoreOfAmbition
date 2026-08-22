@@ -22,7 +22,7 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 20 : 28;
+  const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 30 : 40;
 
   const handleSignUp = async () => {
     if (!email.trim() || !username.trim() || !password) {
