@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 import { healthRouter } from './routes/health.js';
 import { authRouter } from './routes/auth.js';
@@ -8,8 +8,6 @@ import { profilesRouter } from './routes/profiles.js';
 import { loreRouter } from './routes/lore.js';
 import { discoverRouter } from './routes/discover.js';
 import { uploadRouter } from './routes/upload.js';
-
-dotenv.config();
 
 const app = express();
 const port = Number(process.env.PORT || 4000);
