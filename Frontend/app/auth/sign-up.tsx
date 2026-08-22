@@ -64,8 +64,14 @@ export default function SignUp() {
         showsVerticalScrollIndicator={false}>
         {/* Brand Header */}
         <View className="mb-8 items-center">
-          <Image source={PAGE_LOGO} className="h-12 w-44" resizeMode="contain" />
-          <Text className="mt-2 text-xs font-normal text-white/50">Different creators. Same story.</Text>
+          <Image
+            source={PAGE_LOGO}
+            style={{ height: 68, width: '85%', maxWidth: 340 }}
+            resizeMode="contain"
+          />
+          <Text className="mt-3 text-xs font-normal tracking-wide text-white/50">
+            Different creators. Same story.
+          </Text>
         </View>
 
         {/* Form Title */}

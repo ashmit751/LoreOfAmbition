@@ -53,11 +53,16 @@ export default function OnboardingStep3() {
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
 
-      {/* Instagram-style Top Header Bar with Hard Top Margin & Logo */}
+      {/* Top Header Bar – Logo fills the bar */}
       <View
-        style={{ paddingTop: hardTopPadding }}
-        className="flex-row items-center justify-center border-b border-white/5 bg-[#08111F] px-5 pb-3.5">
-        <Image source={PAGE_LOGO} className="h-9 w-28" resizeMode="contain" />
+        style={{ paddingTop: hardTopPadding, paddingBottom: 14 }}
+        className="items-center justify-center border-b border-white/5 bg-[#08111F] px-8"
+      >
+        <Image
+          source={PAGE_LOGO}
+          style={{ height: 52, width: '80%', maxWidth: 300 }}
+          resizeMode="contain"
+        />
       </View>
 
       <ScrollView className="flex-1 px-6 pt-4" showsVerticalScrollIndicator={false}>

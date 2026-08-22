@@ -42,7 +42,7 @@ export default function HomeFeed() {
         className="flex-row items-center justify-between border-b border-white/5 bg-[#08111F] px-5 pb-3.5">
         <Image
             source={PAGE_LOGO}
-            className="h-9 w-28"
+            className="h-11 w-36"
             resizeMode="contain"
           />
         <TouchableOpacity

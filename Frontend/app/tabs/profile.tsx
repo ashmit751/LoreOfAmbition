@@ -27,7 +27,7 @@ export default function ProfileScreen() {
       <View
         style={{ paddingTop: hardTopPadding }}
         className="flex-row items-center justify-between border-b border-white/5 bg-[#08111F] px-5 pb-3.5">
-        <Image source={PAGE_LOGO} className="h-9 w-28" resizeMode="contain" />
+        <Image source={PAGE_LOGO} className="h-11 w-36" resizeMode="contain" />
         <TouchableOpacity
           onPress={() => router.push('/notifications')}
           className="rounded-full border border-[#4D8BFF]/20 bg-[#151B2D] p-2">

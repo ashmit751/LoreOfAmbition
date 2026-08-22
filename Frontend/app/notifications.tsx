@@ -25,7 +25,7 @@ export default function NotificationsScreen() {
           <TouchableOpacity onPress={() => router.back()} className="-ml-1 rounded-full p-2">
             <Text className="text-base text-white">←</Text>
           </TouchableOpacity>
-          <Image source={PAGE_LOGO} className="h-7 w-24" resizeMode="contain" />
+          <Image source={PAGE_LOGO} className="h-10 w-32" resizeMode="contain" />
         </View>
       </View>
 

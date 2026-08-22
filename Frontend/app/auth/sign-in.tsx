@@ -21,7 +21,11 @@ export default function SignIn() {
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
       <View className="flex-1 items-center justify-center px-6">
-        <Image source={PAGE_LOGO} className="mb-6 h-12 w-36" resizeMode="contain" />
+        <Image
+          source={PAGE_LOGO}
+          style={{ height: 68, width: '85%', maxWidth: 340, marginBottom: 28 }}
+          resizeMode="contain"
+        />
 
         <Text className="mb-1.5 text-2xl font-bold text-white">Welcome back</Text>
         <Text className="mb-8 text-xs text-white/50">Build your lore.</Text>
