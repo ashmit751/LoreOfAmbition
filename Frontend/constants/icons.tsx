@@ -16,6 +16,7 @@ import { ImageSourcePropType } from 'react-native';
 // App Icon
 // -----------------------------------------------------------------------
 export const APP_ICON: ImageSourcePropType = require('../assets/logo/app-icon.png');
+export const PAGE_LOGO: ImageSourcePropType = require('../assets/logo/page logo.png');
 
 // -----------------------------------------------------------------------
 // Bottom Nav / Navigation Icons

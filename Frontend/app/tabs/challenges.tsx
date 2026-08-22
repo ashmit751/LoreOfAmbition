@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { APP_ICON } from '@/constants/icons';
+import { PAGE_LOGO } from '@/constants/icons';
 import '@/global.css';
 
 const CHALLENGES = [
@@ -49,10 +49,7 @@ export default function ChallengesScreen() {
       <View
         style={{ paddingTop: hardTopPadding }}
         className="flex-row items-center justify-between border-b border-white/5 bg-[#08111F] px-5 pb-3.5">
-        <View className="flex-row items-center gap-2.5">
-          <Image source={APP_ICON} className="h-7 w-7 rounded-lg" resizeMode="contain" />
-          <Text className="text-xl font-bold tracking-wide text-white">Challenges</Text>
-        </View>
+        <Image source={PAGE_LOGO} className="h-9 w-28" resizeMode="contain" />
         <TouchableOpacity
           onPress={() => router.push('/notifications')}
           className="rounded-full border border-[#4D8BFF]/20 bg-[#151B2D] p-2">

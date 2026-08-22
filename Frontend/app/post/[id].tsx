@@ -10,7 +10,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { APP_ICON } from '@/constants/icons';
+import { PAGE_LOGO } from '@/constants/icons';
 import '@/global.css';
 
 export default function PostDetailScreen() {
@@ -67,8 +67,7 @@ export default function PostDetailScreen() {
           <TouchableOpacity onPress={() => router.back()} className="-ml-1 rounded-full p-2">
             <Text className="text-base text-white">←</Text>
           </TouchableOpacity>
-          <Image source={APP_ICON} className="h-6 w-6 rounded-md" resizeMode="contain" />
-          <Text className="text-lg font-bold text-white">Post</Text>
+          <Image source={PAGE_LOGO} className="h-7 w-24" resizeMode="contain" />
         </View>
       </View>
 

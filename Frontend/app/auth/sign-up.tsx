@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
@@ -12,6 +13,8 @@ import {
   Platform,
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
+
+import { PAGE_LOGO } from '@/constants/icons';
 import { authApi } from '@/lib/api';
 import '@/global.css';
 
@@ -61,8 +64,8 @@ export default function SignUp() {
         showsVerticalScrollIndicator={false}>
         {/* Brand Header */}
         <View className="mb-8 items-center">
-          <Text className="mb-1 text-2xl font-extrabold tracking-wide text-white">Lore</Text>
-          <Text className="text-xs font-normal text-white/50">Different creators. Same story.</Text>
+          <Image source={PAGE_LOGO} className="h-12 w-44" resizeMode="contain" />
+          <Text className="mt-2 text-xs font-normal text-white/50">Different creators. Same story.</Text>
         </View>
 
         {/* Form Title */}

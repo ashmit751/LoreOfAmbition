@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { APP_ICON } from '@/constants/icons';
+import { PAGE_LOGO } from '@/constants/icons';
 import '@/global.css';
 
 export default function SignIn() {
@@ -21,7 +21,7 @@ export default function SignIn() {
     <SafeAreaView className="flex-1 bg-[#08111F]">
       <StatusBar barStyle="light-content" backgroundColor="#08111F" />
       <View className="flex-1 items-center justify-center px-6">
-        <Image source={APP_ICON} className="mb-4 h-12 w-12 rounded-2xl" resizeMode="contain" />
+        <Image source={PAGE_LOGO} className="mb-6 h-12 w-36" resizeMode="contain" />
 
         <Text className="mb-1.5 text-2xl font-bold text-white">Welcome back</Text>
         <Text className="mb-8 text-xs text-white/50">Build your lore.</Text>
