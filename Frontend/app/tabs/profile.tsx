@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,16 +8,41 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { PAGE_LOGO } from '@/constants/icons';
+import { sessionManager, CreatorSession } from '@/lib/session';
+import { authApi } from '@/lib/api';
 import '@/global.css';
 
 export default function ProfileScreen() {
   const router = useRouter();
   const [profileTab, setProfileTab] = useState<'posts' | 'bulletins' | 'challenges'>('posts');
+  const [session, setSession] = useState<CreatorSession | null>(null);
+
+  useEffect(() => {
+    sessionManager.getSession().then(setSession);
+  }, []);
+
+  const handleSignOut = () => {
+    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Sign Out',
+        style: 'destructive',
+        onPress: async () => {
+          await authApi.signOut();
+          router.replace('/auth/sign-up');
+        },
+      },
+    ]);
+  };
 
   const hardTopPadding = Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 24 : 32;
+
+  const username = session?.username || session?.displayName || 'creator';
+  const displayName = session?.displayName || session?.username || 'Creator';
 
   return (
     <SafeAreaView className="flex-1 bg-[#08111F]">
@@ -65,8 +90,8 @@ export default function ProfileScreen() {
           <View className="mb-3 h-16 w-16 items-center justify-center rounded-full border border-[#4D8BFF]/30 bg-[#4D8BFF]/20">
             <Text className="text-3xl">👨‍💻</Text>
           </View>
-          <Text className="mb-1 text-base font-bold text-white">devraj</Text>
-          <Text className="mb-3.5 text-xs text-white/50">@devraj • Building in public</Text>
+          <Text className="mb-1 text-base font-bold text-white">{displayName}</Text>
+          <Text className="mb-3.5 text-xs text-white/50">@{username} • Building in public</Text>
 
           {/* Stats */}
           <View className="mb-4 w-full flex-row justify-around px-2">
@@ -124,12 +149,18 @@ export default function ProfileScreen() {
         {profileTab === 'posts' && (
           <View className="gap-3 pb-6">
             <View className="rounded-[18px] border border-[#4D8BFF]/10 bg-[#151B2D]/80 p-4">
+              <View className="mb-2.5 flex-row items-center justify-between">
+                <Text className="text-xs font-semibold text-[#4D8BFF]">
+                  Lore of Ambition • Day 14
+                </Text>
+                <Text className="text-[10px] text-white/40">2h ago</Text>
+              </View>
               <Text className="mb-3 text-xs leading-5 text-white/90">
-                just shipped notifications feature! 🎉
+                finally got authentication working after 3 days of debugging 🔥 so satisfying!
               </Text>
               <View className="flex-row items-center gap-4 border-t border-white/5 pt-1">
-                <Text className="text-[11px] text-white/50">🤍 32</Text>
-                <Text className="text-[11px] text-white/50">💬 8</Text>
+                <Text className="text-[11px] text-white/50">🤍 48</Text>
+                <Text className="text-[11px] text-white/50">💬 12</Text>
               </View>
             </View>
 
@@ -171,6 +202,15 @@ export default function ProfileScreen() {
             </View>
           </View>
         )}
+
+        {/* Sign Out Button */}
+        <View className="mt-2 mb-10">
+          <TouchableOpacity
+            onPress={handleSignOut}
+            className="w-full items-center justify-center rounded-xl border border-red-500/30 bg-red-500/10 py-3">
+            <Text className="text-xs font-bold text-red-400">Sign Out</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

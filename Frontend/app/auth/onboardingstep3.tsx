@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { PAGE_LOGO } from '@/constants/icons';
+import { sessionManager } from '@/lib/session';
 import '@/global.css';
 
 const LOOKING_FOR_OPTIONS = [
@@ -56,8 +57,7 @@ export default function OnboardingStep3() {
       {/* Top Header Bar – Logo fills the bar */}
       <View
         style={{ paddingTop: hardTopPadding, paddingBottom: 14 }}
-        className="items-center justify-center border-b border-white/5 bg-[#08111F] px-8"
-      >
+        className="items-center justify-center border-b border-white/5 bg-[#08111F] px-8">
         <Image
           source={PAGE_LOGO}
           style={{ height: 52, width: '80%', maxWidth: 300 }}
@@ -157,7 +157,10 @@ export default function OnboardingStep3() {
 
         {/* Enter App */}
         <TouchableOpacity
-          onPress={() => router.replace('/tabs')}
+          onPress={async () => {
+            await sessionManager.completeOnboarding();
+            router.replace('/tabs');
+          }}
           className="mb-8 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-3.5">
           <Text className="text-xs font-bold text-white">Let&apos;s go →</Text>
         </TouchableOpacity>

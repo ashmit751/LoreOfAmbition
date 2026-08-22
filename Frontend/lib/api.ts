@@ -1,6 +1,8 @@
 import { Platform } from 'react-native';
+import { sessionManager } from './session';
 
-// Default to localhost for web/iOS simulator, 10.0.2.2 for Android emulator
+// ─── Base URL ───────────────────────────────────────────────────────────────
+// Android emulator → 10.0.2.2 (host machine), everything else → localhost
 const getBaseUrl = () => {
   if (Platform.OS === 'android') {
     return 'http://10.0.2.2:4000';
@@ -10,6 +12,7 @@ const getBaseUrl = () => {
 
 export const API_BASE_URL = getBaseUrl();
 
+// ─── Payload types ───────────────────────────────────────────────────────────
 export interface SignUpPayload {
   email: string;
   password: string;
@@ -32,65 +35,87 @@ export interface OnboardingPayload {
   tiktok_url?: string;
 }
 
+// ─── Helper ──────────────────────────────────────────────────────────────────
+async function apiPost<T>(path: string, body: object): Promise<T> {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || `Request failed (${response.status})`);
+  }
+  return data as T;
+}
+
+// ─── Auth API ─────────────────────────────────────────────────────────────────
 export const authApi = {
+  /**
+   * Creates a Supabase auth user + a profile row, then persists the session.
+   */
   signUp: async (payload: SignUpPayload) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to sign up');
-      }
-      return data;
-    } catch (err: any) {
-      console.warn('API signup fallback/error:', err.message);
-      // Return optimistic fallback for local preview
-      return {
-        user: { id: 'temp-user-id', email: payload.email },
-        profile: { username: payload.username, display_name: payload.username },
-      };
-    }
+    const data = await apiPost<{
+      user: { id: string; email: string };
+      session: { access_token: string; refresh_token: string } | null;
+      profile: { username: string; display_name: string };
+    }>('/api/auth/signup', payload);
+
+    // Persist session locally so the app knows who is logged in
+    await sessionManager.setSession({
+      userId: data.user.id,
+      email: data.user.email,
+      username: data.profile?.username,
+      displayName: data.profile?.display_name,
+      accessToken: data.session?.access_token,
+      refreshToken: data.session?.refresh_token,
+      isOnboarded: false,
+    });
+
+    return data;
   },
 
+  /**
+   * Signs in via Supabase Auth + fetches the profile, then persists the session.
+   */
   signIn: async (payload: SignInPayload) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/signin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to sign in');
-      }
-      return data;
-    } catch (err: any) {
-      console.warn('API signin fallback/error:', err.message);
-      return {
-        user: { id: 'temp-user-id', email: payload.email },
-        profile: { username: 'creator', display_name: 'Creator' },
-      };
-    }
+    const data = await apiPost<{
+      user: { id: string; email: string };
+      session: { access_token: string; refresh_token: string };
+      profile: { username: string; display_name: string } | null;
+    }>('/api/auth/signin', payload);
+
+    await sessionManager.setSession({
+      userId: data.user.id,
+      email: data.user.email,
+      username: data.profile?.username,
+      displayName: data.profile?.display_name,
+      accessToken: data.session?.access_token,
+      refreshToken: data.session?.refresh_token,
+      isOnboarded: true, // existing users are already onboarded
+    });
+
+    return data;
   },
 
+  /**
+   * Updates the profile row during onboarding steps 1-3.
+   */
   saveOnboarding: async (payload: OnboardingPayload) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/onboarding`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to save onboarding');
-      }
-      return data;
-    } catch (err: any) {
-      console.warn('API onboarding fallback/error:', err.message);
-      return { data: payload };
+    const session = await sessionManager.getSession();
+    const userId = payload.userId ?? session?.userId;
+
+    if (!userId) {
+      throw new Error('No user session found. Please sign up first.');
     }
+
+    return apiPost('/api/auth/onboarding', { ...payload, userId });
+  },
+
+  /**
+   * Signs out by clearing local session.
+   */
+  signOut: async () => {
+    await sessionManager.clearSession();
   },
 };

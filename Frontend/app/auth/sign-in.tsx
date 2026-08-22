@@ -7,15 +7,39 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { PAGE_LOGO } from '@/constants/icons';
+import { authApi } from '@/lib/api';
 import '@/global.css';
 
 export default function SignIn() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignIn = async () => {
+    if (!email.trim() || !password) {
+      Alert.alert('Missing Fields', 'Please enter both email and password.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await authApi.signIn({
+        email: email.trim(),
+        password,
+      });
+      router.replace('/tabs');
+    } catch (err: any) {
+      Alert.alert('Sign In Error', err.message || 'Invalid credentials or connection error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-[#08111F]">
@@ -37,6 +61,7 @@ export default function SignIn() {
             value={email}
             onChangeText={setEmail}
             autoCapitalize="none"
+            keyboardType="email-address"
             className="w-full rounded-xl border border-[#4D8BFF]/15 bg-[#151B2D] px-4 py-3 text-xs text-white"
           />
           <TextInput
@@ -50,9 +75,14 @@ export default function SignIn() {
         </View>
 
         <TouchableOpacity
-          onPress={() => router.replace('/tabs')}
-          className="mb-4 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-3">
-          <Text className="text-xs font-bold text-white">Sign In</Text>
+          onPress={handleSignIn}
+          disabled={loading}
+          className="mb-4 w-full items-center justify-center rounded-xl bg-[#4D8BFF] py-3.5">
+          {loading ? (
+            <ActivityIndicator size="small" color="#FFFFFF" />
+          ) : (
+            <Text className="text-xs font-bold text-white">Sign In</Text>
+          )}
         </TouchableOpacity>
 
         <Link href="/auth/sign-up" className="text-xs text-white/50">

@@ -1,4 +1,6 @@
-import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const SESSION_KEY = 'lore_creator_session';
 
 export interface CreatorSession {
   userId: string;
@@ -6,52 +8,41 @@ export interface CreatorSession {
   username?: string;
   displayName?: string;
   avatar?: string;
+  accessToken?: string;
+  refreshToken?: string;
   isOnboarded: boolean;
 }
 
-// In-memory fallback / simple web storage
-let memorySession: CreatorSession | null = null;
-
 export const sessionManager = {
   getSession: async (): Promise<CreatorSession | null> => {
-    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
-      const stored = window.localStorage.getItem('lore_creator_session');
+    try {
+      const stored = await AsyncStorage.getItem(SESSION_KEY);
       if (stored) {
-        try {
-          return JSON.parse(stored);
-        } catch {
-          return null;
-        }
+        return JSON.parse(stored) as CreatorSession;
       }
+      return null;
+    } catch {
+      return null;
     }
-    return memorySession;
   },
 
-  setSession: async (session: Partial<CreatorSession>) => {
-    const current = (await sessionManager.getSession()) || {
-      userId: 'user_' + Date.now(),
-      isOnboarded: false,
-    };
+  setSession: async (session: Partial<CreatorSession>): Promise<CreatorSession> => {
+    const current = await sessionManager.getSession();
     const updated: CreatorSession = {
+      userId: current?.userId ?? 'unknown',
+      isOnboarded: current?.isOnboarded ?? false,
       ...current,
       ...session,
     };
-    memorySession = updated;
-
-    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem('lore_creator_session', JSON.stringify(updated));
-    }
+    await AsyncStorage.setItem(SESSION_KEY, JSON.stringify(updated));
     return updated;
   },
 
-  completeOnboarding: async () => {
+  completeOnboarding: async (): Promise<CreatorSession> => {
     return sessionManager.setSession({ isOnboarded: true });
   },
 
-  clearSession: async () => {
-    memorySession = null;
-    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.removeItem('lore_creator_session');
-    }
+  clearSession: async (): Promise<void> => {
+    await AsyncStorage.removeItem(SESSION_KEY);
   },
 };

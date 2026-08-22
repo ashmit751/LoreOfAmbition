@@ -42,8 +42,7 @@ export default function OnboardingStep2() {
       {/* Top Header Bar – Logo fills the bar */}
       <View
         style={{ paddingTop: hardTopPadding, paddingBottom: 14 }}
-        className="items-center justify-center border-b border-white/5 bg-[#08111F] px-8"
-      >
+        className="items-center justify-center border-b border-white/5 bg-[#08111F] px-8">
         <Image
           source={PAGE_LOGO}
           style={{ height: 52, width: '80%', maxWidth: 300 }}
