@@ -1,12 +1,25 @@
 import { Platform } from 'react-native';
+import Constants from 'expo-constants';
 import { sessionManager } from './session';
 
 // ─── Base URL ───────────────────────────────────────────────────────────────
-// Android emulator → 10.0.2.2 (host machine), everything else → localhost
+// Automatically resolves the local machine's IP address across Web, Emulators & Physical Phones on Expo Go
 const getBaseUrl = () => {
+  // If running in Expo Go (physical phone / simulator on local Wi-Fi), extract host machine IP
+  const hostUri = Constants.expoConfig?.hostUri;
+  if (hostUri) {
+    const host = hostUri.split(':')[0];
+    if (host && host !== 'localhost' && host !== '127.0.0.1') {
+      return `http://${host}:4000`;
+    }
+  }
+
+  // Android emulator fallback
   if (Platform.OS === 'android') {
     return 'http://10.0.2.2:4000';
   }
+
+  // Web / iOS Simulator fallback
   return 'http://localhost:4000';
 };
 
@@ -37,16 +50,35 @@ export interface OnboardingPayload {
 
 // ─── Helper ──────────────────────────────────────────────────────────────────
 async function apiPost<T>(path: string, body: object): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error || `Request failed (${response.status})`);
+  const url = `${API_BASE_URL}${path}`;
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(
+        `Server returned non-JSON response from ${url}. Ensure the backend server is running on port 4000.\nResponse snippet: ${text.slice(0, 100)}`,
+      );
+    }
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || `Request failed with status ${response.status}`);
+    }
+    return data as T;
+  } catch (err: any) {
+    if (err.message?.includes('Network request failed')) {
+      throw new Error(
+        `Cannot reach backend at ${url}. Make sure your backend is running ('cd Backend && npm start') on the same Wi-Fi.`,
+      );
+    }
+    throw err;
   }
-  return data as T;
 }
 
 // ─── Auth API ─────────────────────────────────────────────────────────────────
