@@ -2,11 +2,17 @@ import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { sessionManager } from './session';
 
-// ─── Base URL ───────────────────────────────────────────────────────────────
-// Automatically resolves the local machine's IP address across Web, Emulators & Physical Phones on Expo Go
-const getBaseUrl = () => {
-  // If running in Expo Go (physical phone / simulator on local Wi-Fi), extract host machine IP
-  const hostUri = Constants.expoConfig?.hostUri;
+// ─── Machine LAN IP ─────────────────────────────────────────────────────────
+// Your local network IP address
+const LOCAL_MACHINE_IP = '192.168.1.5';
+
+export const getBaseUrl = (): string => {
+  // 1. Try to dynamically extract host machine IP from Expo bundler
+  const hostUri =
+    Constants.expoConfig?.hostUri ||
+    (Constants.manifest as any)?.debuggerHost ||
+    (Constants.manifest2 as any)?.extra?.expoClient?.hostUri;
+
   if (hostUri) {
     const host = hostUri.split(':')[0];
     if (host && host !== 'localhost' && host !== '127.0.0.1') {
@@ -14,16 +20,19 @@ const getBaseUrl = () => {
     }
   }
 
-  // Android emulator fallback
+  // 2. Android emulator (when not on physical device)
   if (Platform.OS === 'android') {
-    return 'http://10.0.2.2:4000';
+    return `http://${LOCAL_MACHINE_IP}:4000`;
   }
 
-  // Web / iOS Simulator fallback
+  // 3. iOS device / Simulator / Web
+  if (Platform.OS === 'ios') {
+    return `http://${LOCAL_MACHINE_IP}:4000`;
+  }
+
+  // 4. Web browser running on the same computer
   return 'http://localhost:4000';
 };
-
-export const API_BASE_URL = getBaseUrl();
 
 // ─── Payload types ───────────────────────────────────────────────────────────
 export interface SignUpPayload {
@@ -50,31 +59,42 @@ export interface OnboardingPayload {
 
 // ─── Helper ──────────────────────────────────────────────────────────────────
 async function apiPost<T>(path: string, body: object): Promise<T> {
-  const url = `${API_BASE_URL}${path}`;
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}${path}`;
+  console.log(`[Lore API] POST -> ${url}`);
+
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     });
 
-    const contentType = response.headers.get('content-type') || '';
-    if (!contentType.includes('application/json')) {
-      const text = await response.text();
+    const responseText = await response.text();
+    console.log(`[Lore API] Status: ${response.status} from ${url}`);
+
+    let data: any;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
       throw new Error(
-        `Server returned non-JSON response from ${url}. Ensure the backend server is running on port 4000.\nResponse snippet: ${text.slice(0, 100)}`,
+        `Backend at ${url} returned invalid response (Status ${response.status}). Make sure the backend is running.\n\nRaw response: ${responseText.slice(0, 120)}`,
       );
     }
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || `Request failed with status ${response.status}`);
+      throw new Error(data.error || `Server error (${response.status})`);
     }
+
     return data as T;
   } catch (err: any) {
-    if (err.message?.includes('Network request failed')) {
+    console.error(`[Lore API Error] ${url}:`, err.message);
+    if (err.message?.includes('Network request failed') || err.message?.includes('Failed to fetch')) {
       throw new Error(
-        `Cannot reach backend at ${url}. Make sure your backend is running ('cd Backend && npm start') on the same Wi-Fi.`,
+        `Cannot reach backend server at ${url}.\n\nPlease ensure your backend is running ('cd Backend && npm start') and your phone & PC are on the same Wi-Fi.`,
       );
     }
     throw err;
