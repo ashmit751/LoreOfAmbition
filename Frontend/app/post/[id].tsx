@@ -138,9 +138,8 @@ export default function PostDetailScreen() {
           {comments.map((comment) => (
             <View
               key={comment.id}
-              className={`rounded border-l-4 bg-[#0E1A2E]/50 p-3 ${
-                comment.isCreator ? 'border-[#4D8BFF]' : 'border-[#4D8BFF]/30'
-              }`}>
+              className={`rounded border-l-4 bg-[#0E1A2E]/50 p-3 ${comment.isCreator ? 'border-[#4D8BFF]' : 'border-[#4D8BFF]/30'
+                }`}>
               <Text className="mb-1 text-[11px] font-semibold text-[#4D8BFF]">
                 {comment.author}
               </Text>
