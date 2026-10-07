@@ -136,16 +136,18 @@ export default function PostDetailScreen() {
         {/* Comments List */}
         <View className="gap-2.5 pb-24">
           {comments.map((comment) => (
-            <View
-              key={comment.id}
-              className={`rounded border-l-4 bg-[#0E1A2E]/50 p-3 ${comment.isCreator ? 'border-[#4D8BFF]' : 'border-[#4D8BFF]/30'
+            <React.Fragment key={comment.id}>
+              <View
+                className={`rounded border-l-4 bg-[#0E1A2E]/50 p-3 ${
+                  comment.isCreator ? 'border-[#4D8BFF]' : 'border-[#4D8BFF]/30'
                 }`}>
-              <Text className="mb-1 text-[11px] font-semibold text-[#4D8BFF]">
-                {comment.author}
-              </Text>
-              <Text className="mb-1.5 text-xs leading-5 text-white/85">{comment.text}</Text>
-              <Text className="text-[9px] text-white/40">{comment.time}</Text>
-            </View>
+                <Text className="mb-1 text-[11px] font-semibold text-[#4D8BFF]">
+                  {comment.author}
+                </Text>
+                <Text className="mb-1.5 text-xs leading-5 text-white/85">{comment.text}</Text>
+                <Text className="text-[9px] text-white/40">{comment.time}</Text>
+              </View>
+            </React.Fragment>
           ))}
         </View>
       </ScrollView>

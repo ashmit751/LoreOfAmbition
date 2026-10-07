@@ -4,3 +4,5 @@ declare module 'nativewind/jsx-runtime' {
   export const jsxs: typeof import('react/jsx-runtime').jsxs;
   export const jsxDEV: typeof import('react/jsx-runtime').jsxDEV;
 }
+
+

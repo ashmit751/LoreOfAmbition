@@ -57,7 +57,39 @@ export interface OnboardingPayload {
   tiktok_url?: string;
 }
 
-// ─── Helper ──────────────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+async function apiGet<T>(path: string): Promise<T> {
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}${path}`;
+  console.log(`[Lore API] GET -> ${url}`);
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+
+    const responseText = await response.text();
+    let data: any;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      throw new Error(`Invalid response from ${url}: ${responseText.slice(0, 100)}`);
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || `Server error (${response.status})`);
+    }
+
+    return data as T;
+  } catch (err: any) {
+    console.error(`[Lore API Error] ${url}:`, err.message);
+    throw err;
+  }
+}
+
 async function apiPost<T>(path: string, body: object): Promise<T> {
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}${path}`;
@@ -171,3 +203,33 @@ export const authApi = {
     await sessionManager.clearSession();
   },
 };
+
+// ─── Profile API ──────────────────────────────────────────────────────────────
+export const profileApi = {
+  getProfile: async (userId: string) => {
+    return apiGet<{ data: any }>(`/api/profiles/${userId}`);
+  },
+  updateProfile: async (payload: Partial<OnboardingPayload> & { userId: string }) => {
+    return apiPost<{ data: any }>('/api/auth/onboarding', payload);
+  },
+};
+
+// ─── Lore Posts API ───────────────────────────────────────────────────────────
+export const loreApi = {
+  getPosts: async () => {
+    return apiGet<{ data: any[] }>('/api/lore-posts');
+  },
+  createPost: async (content: string, authorId: string) => {
+    return apiPost<{ data: any }>('/api/lore-posts', { content, author_id: authorId });
+  },
+  likePost: async (postId: string, userId: string) => {
+    return apiPost<{ data: any }>(`/api/lore-posts/${postId}/like`, { user_id: userId });
+  },
+  addComment: async (postId: string, userId: string, content: string) => {
+    return apiPost<{ data: any }>(`/api/lore-posts/${postId}/comments`, {
+      user_id: userId,
+      content,
+    });
+  },
+};
+
