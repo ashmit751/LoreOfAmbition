@@ -469,8 +469,9 @@ export default function ProfileScreen() {
         {activeTab === 'feed' && (
           <View className="gap-3 p-4">
             {userPosts.map((post) => (
-              <React.Fragment key={post.id}>
-                <View className="rounded-[18px] border border-white/5 bg-[#151B2D] p-4 shadow-sm">
+              <View
+                key={post.id}
+                className="rounded-[18px] border border-white/5 bg-[#151B2D] p-4 shadow-sm">
                 <View className="mb-2.5 flex-row items-center justify-between">
                   <View className="flex-row items-center gap-2">
                     <View className="h-8 w-8 items-center justify-center rounded-full bg-[#4D8BFF]/20">
@@ -513,7 +514,6 @@ export default function ProfileScreen() {
                   </TouchableOpacity>
                 </View>
               </View>
-            </React.Fragment>
             ))}
           </View>
         )}

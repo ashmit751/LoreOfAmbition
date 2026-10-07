@@ -116,29 +116,29 @@ export default function DiscoverScreen() {
           {CREATORS.map((creator) => {
             const isFollowing = !!followingMap[creator.id];
             return (
-              <React.Fragment key={creator.id}>
-                <View className="items-center rounded-[18px] border border-[#4D8BFF]/10 bg-[#151B2D]/80 p-4">
-                  <Text className="mb-2 text-3xl">{creator.avatar}</Text>
-                  <Text className="mb-0.5 text-xs font-semibold text-white">{creator.name}</Text>
-                  <Text className="mb-1.5 text-[10px] text-white/50">{creator.niche}</Text>
-                  <Text className="mb-3 text-[10px] font-medium text-[#FF9650]">
-                    🔥 {creator.streak} Day Streak
-                  </Text>
+              <View
+                key={creator.id}
+                className="items-center rounded-[18px] border border-[#4D8BFF]/10 bg-[#151B2D]/80 p-4">
+                <Text className="mb-2 text-3xl">{creator.avatar}</Text>
+                <Text className="mb-0.5 text-xs font-semibold text-white">{creator.name}</Text>
+                <Text className="mb-1.5 text-[10px] text-white/50">{creator.niche}</Text>
+                <Text className="mb-3 text-[10px] font-medium text-[#FF9650]">
+                  🔥 {creator.streak} Day Streak
+                </Text>
 
-                  <TouchableOpacity
-                    onPress={() => toggleFollow(creator.id)}
-                    className={`w-full items-center justify-center rounded-[10px] py-2 ${
-                      isFollowing ? 'border border-[#4D8BFF]/40 bg-transparent' : 'bg-[#4D8BFF]'
+                <TouchableOpacity
+                  onPress={() => toggleFollow(creator.id)}
+                  className={`w-full items-center justify-center rounded-[10px] py-2 ${
+                    isFollowing ? 'border border-[#4D8BFF]/40 bg-transparent' : 'bg-[#4D8BFF]'
+                  }`}>
+                  <Text
+                    className={`text-xs font-semibold ${
+                      isFollowing ? 'text-[#4D8BFF]' : 'text-white'
                     }`}>
-                    <Text
-                      className={`text-xs font-semibold ${
-                        isFollowing ? 'text-[#4D8BFF]' : 'text-white'
-                      }`}>
-                      {isFollowing ? 'Following' : '+ Follow'}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </React.Fragment>
+                    {isFollowing ? 'Following' : '+ Follow'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             );
           })}
         </View>

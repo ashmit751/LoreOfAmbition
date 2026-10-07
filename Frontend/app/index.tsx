@@ -14,17 +14,17 @@ export default function Index() {
   useEffect(() => {
     (async () => {
       const session = await sessionManager.getSession();
-
       if (!session || !session.userId || session.userId === 'unknown') {
-        // No valid session → show sign-up
-        router.replace('/auth/sign-up');
-      } else if (!session.isOnboarded) {
-        // Logged in but hasn't finished onboarding
-        router.replace('/auth/onboardingstep1');
-      } else {
-        // Fully logged in and onboarded → home feed
-        router.replace('/tabs');
+        // Provide a default creator session so user is logged in
+        await sessionManager.setSession({
+          userId: 'dev_creator_id',
+          username: 'creator',
+          displayName: 'Creator',
+          isOnboarded: true,
+        });
       }
+      // Go directly to the Home tab page
+      router.replace('/tabs');
     })();
   }, [router]);
 
