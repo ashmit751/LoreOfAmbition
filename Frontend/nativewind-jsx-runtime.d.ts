@@ -7,6 +7,7 @@ declare module 'nativewind/jsx-runtime' {
   namespace JSX {
     interface IntrinsicAttributes {
       key?: string | number | null | undefined;
+      ref?: any;
     }
   }
 }
