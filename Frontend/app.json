@@ -7,9 +7,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "experiments": {
-      "tsconfigPaths": true
-    },
     "plugins": ["expo-router"],
     "orientation": "portrait",
     "icon": "./assets/logo/app-icon.png",
